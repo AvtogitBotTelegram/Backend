@@ -5,7 +5,7 @@
             "name": "Python: Backend",
             "type": "python",
             "request": "launch",
-            "module": "cap",
+            "module": "avtogit",
             "justMyCode": true,
             "console": "internalConsole"
         },
