@@ -4,7 +4,6 @@ from flask import Blueprint, request
 from avtogit.analyst import Analyst
 from avtogit.schemas import ModelDetails
 
-
 detail = Blueprint('detail', __name__)
 
 analyst = Analyst()

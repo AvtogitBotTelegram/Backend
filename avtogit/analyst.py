@@ -3,12 +3,17 @@ from datetime import datetime, timedelta
 import pandas
 
 from avtogit.schemas import ModelDetails
+from avtogit.errors import NotExcelFileError
 
 
 class Analyst:
 
     def expired_details(self, bytes_file: bytes) -> list[ModelDetails]:
-        file = pandas.read_excel(bytes_file)
+        try:
+            file = pandas.read_excel(bytes_file)
+        except ValueError:
+            raise NotExcelFileError('file', 'reason: Not found excel file')
+
         file['Ожидаемый срок'] = pandas.to_datetime(file['Ожидаемый срок'], format='%d.%m.%Y %H:%M')
         details = file[
             (file['Готово к выдаче, шт'].notna()) &
