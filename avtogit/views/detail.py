@@ -1,3 +1,4 @@
+import httpx
 import orjson
 from flask import Blueprint, request
 
@@ -9,8 +10,16 @@ detail = Blueprint('detail', __name__)
 analyst = Analyst()
 
 
-@detail.post('/expired-details')
+@detail.post('/file')
 def excel():
     bytes_file = request.files['upload-file'].read()
+    bad_details = analyst.expired_details(bytes_file)
+    return orjson.dumps([ModelDetails.from_orm(entity).dict() for entity in bad_details])
+
+
+@detail.post('/url')
+def url():
+    url_file = request.json['url']
+    bytes_file = httpx.get(url_file).content
     bad_details = analyst.expired_details(bytes_file)
     return orjson.dumps([ModelDetails.from_orm(entity).dict() for entity in bad_details])

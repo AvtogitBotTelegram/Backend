@@ -10,7 +10,7 @@ def handle_app_errors(error: AppError):
 
 app = Flask(__name__)
 
-app.register_blueprint(detail.detail, url_prefix='/api/v1/detail/')
+app.register_blueprint(detail.detail, url_prefix='/api/v1/detail/upload')
 
 app.register_error_handler(AppError, handle_app_errors)
 
